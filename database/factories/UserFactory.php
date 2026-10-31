@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Database\Factories;
+
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<User>
+ */
+final class UserFactory extends Factory
+{
+    protected $model = User::class;
+
+    /** @return array<string,mixed> */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->name(),
+            'phone' => '+1202555'.$this->faker->unique()->numerify('####'),
+            'role' => 'employee',
+        ];
+    }
+
+    public function admin(): static
+    {
+        return $this->state(['role' => 'admin']);
+    }
+
+    public function employee(): static
+    {
+        return $this->state(['role' => 'employee']);
+    }
+}
