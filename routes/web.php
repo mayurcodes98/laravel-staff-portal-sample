@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function (): void {
     Route::get('/login', [OtpRequestController::class, 'show'])->name('otp.request.show');
     Route::post('/login', [OtpRequestController::class, 'store'])
-        ->middleware('throttle:'.config('otp.rate_limit_per_minute').',1')
+        ->middleware('throttle:otp-send')
         ->name('otp.request.store');
 
     Route::get('/verify', [OtpVerifyController::class, 'show'])->name('otp.verify.show');
-    Route::post('/verify', [OtpVerifyController::class, 'store'])->name('otp.verify.store');
+    Route::post('/verify', [OtpVerifyController::class, 'store'])
+        ->middleware('throttle:otp-verify')
+        ->name('otp.verify.store');
 });
 
 Route::middleware('auth')->group(function (): void {

@@ -26,8 +26,24 @@ return [
 
     /*
     |----------------------------------------------------------------------
-    | Rate-limit: max OTP requests per phone per minute
+    | Rate-limit: max OTP send requests per phone per minute
     |----------------------------------------------------------------------
     */
-    'rate_limit_per_minute' => (int) env('OTP_RATE_LIMIT_PER_MINUTE', 3),
+    'send_rate_limit_per_minute' => (int) env('OTP_SEND_RATE_LIMIT_PER_MINUTE', 3),
+
+    /*
+    |----------------------------------------------------------------------
+    | Rate-limit: max OTP verify requests per IP per minute
+    |----------------------------------------------------------------------
+    */
+    'verify_rate_limit_per_minute' => (int) env('OTP_VERIFY_RATE_LIMIT_PER_MINUTE', 5),
+
+    /*
+    |----------------------------------------------------------------------
+    | SMS driver — controls which SmsGatewayInterface implementation is
+    | bound in AppServiceProvider. 'log' (default) writes to the log file.
+    | Add new driver names as real carriers are integrated.
+    |----------------------------------------------------------------------
+    */
+    'sms_driver' => env('OTP_SMS_DRIVER', 'log'),
 ];
