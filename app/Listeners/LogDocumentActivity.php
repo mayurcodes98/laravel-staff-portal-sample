@@ -12,6 +12,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 /**
  * Queued listener: writing the activity log row is fire-and-forget
  * and must not delay the HTTP response.
+ *
+ * Laravel auto-discovers this listener from the handle(DocumentUploaded $event)
+ * type-hint, so no EventServiceProvider mapping is required.
  */
 final class LogDocumentActivity implements ShouldQueue
 {
